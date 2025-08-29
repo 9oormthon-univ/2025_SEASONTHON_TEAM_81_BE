@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local: "local, datasource"
+      dev: "dev, datasource"
+      prod: "prod, datasource"
+  jpa:
+    open-in-view: false
