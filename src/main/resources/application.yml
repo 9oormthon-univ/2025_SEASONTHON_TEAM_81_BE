@@ -5,5 +5,7 @@ spring:
       local: "local, datasource"
       dev: "dev, datasource"
       prod: "prod, datasource"
+    include:
+      - docs
   jpa:
     open-in-view: false
