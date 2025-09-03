@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -57,7 +56,12 @@ public class JwtProvider {
 			.compact();
 	}
 
-	public Claims parseToken(String token) {
+	public Long extractUserIdFromToken(String token) {
+		String subject = parseToken(token).getSubject();
+		return Long.parseLong(subject);
+	}
+
+	private Claims parseToken(String token) {
 		return Jwts.parser()
 			.verifyWith(secretKey)
 			.build()
