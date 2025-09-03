@@ -14,6 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # JDK를 17 버전으로 세팅
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -43,16 +44,33 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 
+      # ECR 로그인
       - name: Login to ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      # Docker 이미지 빌드 및 AWS ECR로 푸시
       - name: Build Docker Image And Push to AWS ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: mindwalk-server
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t mindwalk-server .
-          docker tag mindwalk-server ${{ steps.login-ecr.outputs.registry }}/mindwalk-server:latest
-          docker push ${{ steps.login-ecr.outputs.registry }}/mindwalk-server:latest
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      # 서버로 docker-compose 파일 전송
+      - name: Copy docker-compose file to EC2
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete
+          remote_host: ${{ secrets.EC2_HOST }}
+          remote_user: ${{ secrets.EC2_USERNAME }}
+          remote_key: ${{ secrets.EC2_KEY }}
+          path: docker-compose.yml
+          remote_path: /home/ubuntu
+
+      # EC2로 배포
       - name: AWS EC2 Server Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -60,18 +78,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            # .env 파일 생성
             echo "${{ secrets.ENV_PROD }}" > .env
-
-            # 컨테이너 중지, 삭제 및 이미지 pull
-            docker stop mindwalk-server || true
-            docker rm mindwalk-server || true
-            docker pull ${{ steps.login-ecr.outputs.registry }}/mindwalk-server:latest
-
-            # 컨테이너 실행
-            docker run -d --name mindwalk-server -p 8080:8080 \
-              --env-file .env \
-              ${{ steps.login-ecr.outputs.registry }}/mindwalk-server:latest
-            
-            # 사용하지 않는 도커 리소스 삭제
-            docker system prune -f
+            export IMAGE_FULL_URL=${{ steps.login-ecr.outputs.registry }}/mindwalk-server:${{ github.sha }}
+            docker compose up -d
+            docker image prune -a -f
