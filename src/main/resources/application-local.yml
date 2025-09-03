@@ -10,3 +10,13 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+jwt:
+  secret: ${SECRET}
+  accessTokenExpiry: ${ACCESS_TOKEN_EXPIRY}
+  refreshTokenExpiry: ${REFRESH_TOKEN_EXPIRY}
