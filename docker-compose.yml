@@ -1,0 +1,29 @@
+services:
+  backend:
+    image: ${IMAGE_FULL_URL}
+    container_name: mindwalk-server
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - redis_network
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volume:/data
+    networks:
+      - redis_network
+
+volumes:
+  redis_volume:  # 볼륨 정의
+
+networks:
+  redis_network: # 네트워크 정의
+    driver: bridge
