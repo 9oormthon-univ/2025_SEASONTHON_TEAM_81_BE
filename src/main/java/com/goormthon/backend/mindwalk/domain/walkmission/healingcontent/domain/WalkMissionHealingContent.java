@@ -1,4 +1,4 @@
-package com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain;
+package com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain;
 
 import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMission;
 

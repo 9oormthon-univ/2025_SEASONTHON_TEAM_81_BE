@@ -1,4 +1,4 @@
-package com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain;
+package com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain;
 
 public enum Category {
 	GRATITUDE_THANKS, // 감사 인사

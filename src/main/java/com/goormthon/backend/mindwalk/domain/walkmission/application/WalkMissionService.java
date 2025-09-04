@@ -13,10 +13,10 @@ import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMission;
 import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMissionStatus;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.WalkMissionCreateRequest;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.response.WalkMissionListResponse;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.dao.HealingContentRepository;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.dao.WalkMissionHealingContentRepository;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.HealingContent;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.WalkMissionHealingContent;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.dao.HealingContentRepository;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.dao.WalkMissionHealingContentRepository;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.HealingContent;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.WalkMissionHealingContent;
 import com.goormthon.backend.mindwalk.global.exception.BaseException;
 import com.goormthon.backend.mindwalk.global.exception.BaseResponseStatus;
 

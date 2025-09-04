@@ -2,7 +2,7 @@ package com.goormthon.backend.mindwalk.domain.walkmission.dto.request;
 
 import java.util.List;
 
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.Category;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.Category;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
