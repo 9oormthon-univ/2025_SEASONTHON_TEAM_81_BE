@@ -42,6 +42,8 @@ public enum BaseResponseStatus {
 	NOT_FOUND(false, 404, HttpStatus.NOT_FOUND, "Not Found"),
 	NOT_FOUND_MISSION(false, 404, HttpStatus.NOT_FOUND, "Not Found Mission"),
 	NOT_FOUND_HEALING_CONTENT(false, 404, HttpStatus.NOT_FOUND, "Not Found HealingContent"),
+	NOT_FOUND_USER(false, 40401, HttpStatus.NOT_FOUND, "User를 찾을 수 없습니다."),
+	NOT_FOUND_GARDEN(false, 40402, HttpStatus.NOT_FOUND, "Garden을 찾을 수 없습니다."),
 
 	/**
 	 * 405 METHOD_NOT_ALLOWED 지원하지 않은 method 호출

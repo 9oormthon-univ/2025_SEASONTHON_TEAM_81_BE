@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,6 +34,9 @@ public class GardenPlant {
 	@Column(name = "growth_point", nullable = false)
 	private Long growthPoint;
 
+	@Column(name = "growth_level", nullable = false)
+	private Long growthLevel;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "flower_type", nullable = false)
 	private FlowerType flowerType;
@@ -40,4 +44,24 @@ public class GardenPlant {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "garden_id")
 	private Garden garden;
+
+	@Builder
+	public GardenPlant(PlantStage plantStage, Long growthPoint, Long growthLevel, FlowerType flowerType,
+		Garden garden) {
+		this.plantStage = plantStage;
+		this.growthPoint = growthPoint;
+		this.growthLevel = growthLevel;
+		this.flowerType = flowerType;
+		this.garden = garden;
+	}
+
+	public static GardenPlant createGardenPlant(Garden garden) {
+		return GardenPlant.builder()
+			.plantStage(PlantStage.SEED)
+			.growthPoint(0L)
+			.growthLevel(0L)
+			.flowerType(FlowerType.ROSE)
+			.garden(garden)
+			.build();
+	}
 }

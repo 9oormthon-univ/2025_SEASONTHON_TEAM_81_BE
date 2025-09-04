@@ -37,6 +37,12 @@ public class User extends BaseTimeEntity {
 		this.oauthId = oauthId;
 	}
 
+	public static User createUser(Long oauthId) {
+		return User.builder()
+			.oauthId(oauthId)
+			.build();
+	}
+
 	public void updateNickname(String nickname) {
 		this.nickname = nickname;
 	}
