@@ -2,6 +2,7 @@ package com.goormthon.backend.mindwalk.domain.garden.api.docs;
 
 import com.goormthon.backend.mindwalk.domain.auth.presentation.annotation.AuthenticatedId;
 import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoResponse;
+import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGrowingPlantInfoResponse;
 import com.goormthon.backend.mindwalk.global.response.BaseResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,6 +23,16 @@ public interface GardenControllerDocs {
 		)
 	})
 	BaseResponse<GetGardenInfoResponse> getUserGarden(
+		@Parameter(hidden = true) @AuthenticatedId Long memberId
+	);
+
+	@Operation(summary = "사용자가 현재 키우고 있는 식물 조회", description = "사용자가 현재 키우고 있는 식물의 정보를 조회합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "조회 성공",
+			content = @Content(schema = @Schema(implementation = GetGrowingPlantInfoResponse.class))
+		)
+	})
+	BaseResponse<GetGrowingPlantInfoResponse> getUserGrowingPlant(
 		@Parameter(hidden = true) @AuthenticatedId Long memberId
 	);
 }
