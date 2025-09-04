@@ -14,7 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import com.goormthon.backend.mindwalk.global.exception.BaseException;
+import com.goormthon.backend.mindwalk.global.exception.BaseResponseStatus;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -41,16 +44,28 @@ public class WalkMission extends BaseTimeEntity {
 	@Column(name = "actual_duration_minutes")
 	private Long actualDurationMinutes;
 
-	@Column(name = "end_latitude", nullable = false)
-	private Double endLatitude;
-
-	@Column(name = "end_longitude", nullable = false)
-	private Double endLongitude;
-
 	@Column(name = "target_duration_minutes", nullable = false)
 	private Long targetDurationMinutes;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	@Builder
+	private WalkMission(WalkMissionStatus status, Long steps, Long distanceMeters, Long actualDurationMinutes,
+		Long targetDurationMinutes, User user) {
+		this.status = status;
+		this.steps = steps;
+		this.distanceMeters = distanceMeters;
+		this.actualDurationMinutes = actualDurationMinutes;
+		this.targetDurationMinutes = targetDurationMinutes;
+		this.user = user;
+	}
+
+	public void cancel() {
+		if (this.status != WalkMissionStatus.IN_PROGRESS) {
+			throw new BaseException(BaseResponseStatus.CANNOT_CANCEL_MISSION);
+		}
+		this.status = WalkMissionStatus.CANCELED;
+	}
 }

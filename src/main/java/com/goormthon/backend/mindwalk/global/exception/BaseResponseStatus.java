@@ -24,6 +24,7 @@ public enum BaseResponseStatus {
 	REQ_BINDING_FAIL(false, 40004, HttpStatus.BAD_REQUEST, "잘못된 request 입니다."),
 	FAILED_VALIDATION(false, 40005, HttpStatus.BAD_REQUEST, "입력값이 누락되었거나, 부적절한 입력 값이 있습니다."),
 	MISMATCH_PARAM_TYPE(false, 40006, HttpStatus.BAD_REQUEST, "잘못된 파라미터 타입입니다."),
+	CANNOT_CANCEL_MISSION(false, 40007, HttpStatus.BAD_REQUEST, "이미 완료되었거나 취소된 미션은 취소할 수 없습니다."),
 
 	/**
 	 * 401 UNAUTHORIZED 권한없음(인증 실패)
@@ -39,6 +40,8 @@ public enum BaseResponseStatus {
 	 * 404 NOT_FOUND 잘못된 리소스 접근
 	 */
 	NOT_FOUND(false, 404, HttpStatus.NOT_FOUND, "Not Found"),
+	NOT_FOUND_MISSION(false, 404, HttpStatus.NOT_FOUND, "Not Found Mission"),
+	NOT_FOUND_HEALING_CONTENT(false, 404, HttpStatus.NOT_FOUND, "Not Found HealingContent"),
 
 	/**
 	 * 405 METHOD_NOT_ALLOWED 지원하지 않은 method 호출
