@@ -7,5 +7,7 @@ spring:
       prod: "prod, datasource"
     include:
       - docs
+      - redis
+      - security
   jpa:
     open-in-view: false
