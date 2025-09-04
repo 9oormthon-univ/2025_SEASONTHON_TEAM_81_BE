@@ -1,6 +1,6 @@
-package com.goormthon.backend.mindwalk.domain.checkpoint.domain;
+package com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain;
 
-public enum HealingContentType {
+public enum Category {
 	GRATITUDE_THANKS, // 감사 인사
 	PRAISE,           // 칭찬하기
 	SHORT_MEDITATION, // 짧은 명상
