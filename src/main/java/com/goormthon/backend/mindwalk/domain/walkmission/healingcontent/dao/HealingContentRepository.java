@@ -10,6 +10,5 @@ import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.H
 
 @Repository
 public interface HealingContentRepository extends JpaRepository<HealingContent, Long> {
-
 	List<HealingContent> findByCategoryIn(List<Category> categories);
 }
