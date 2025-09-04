@@ -1,6 +1,4 @@
-package com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain;
-
-import com.goormthon.backend.mindwalk.domain.common.BaseTimeEntity;
+package com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

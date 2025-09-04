@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMission;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.HealingContent;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.HealingContent;
 
 public record WalkMissionListResponse(
 	Long missionId,

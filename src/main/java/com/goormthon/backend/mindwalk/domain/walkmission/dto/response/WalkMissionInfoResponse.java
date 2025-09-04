@@ -1,7 +1,7 @@
 package com.goormthon.backend.mindwalk.domain.walkmission.dto.response;
 
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.Category;
-import com.goormthon.backend.mindwalk.domain.walkmission.healingContent.domain.HealingContent;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.Category;
+import com.goormthon.backend.mindwalk.domain.walkmission.healingcontent.domain.HealingContent;
 
 public record WalkMissionInfoResponse(
 	Long healingContentId,
