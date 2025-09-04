@@ -13,6 +13,7 @@ import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoRe
 import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoResponse.TodayGrowth;
 import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoResponse.UserFlower;
 import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoResponse.UserGardenPlant;
+import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGrowingPlantInfoResponse;
 import com.goormthon.backend.mindwalk.global.exception.BaseException;
 import com.goormthon.backend.mindwalk.global.exception.BaseResponseStatus;
 
@@ -51,5 +52,18 @@ public class GardenService {
 			.filter(gardenPlant -> gardenPlant.getPlantStage() == PlantStage.FLOWER)
 			.map(UserFlower::from)
 			.toList();
+	}
+
+	@Transactional(readOnly = true)
+	public GetGrowingPlantInfoResponse getUserGrowingPlant(Long userId) {
+		Garden garden = gardenRepository.findByUserId(userId)
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_GARDEN));
+		List<GardenPlant> gardenPlants = garden.getGardenPlants();
+		GardenPlant gardenPlant = gardenPlants.stream()
+			.filter(plant -> plant.getPlantStage() != PlantStage.FLOWER)
+			.findFirst()
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_GROWING_PLANT));
+		int plantSequence = gardenPlants.size();
+		return GetGrowingPlantInfoResponse.of(gardenPlant, plantSequence);
 	}
 }

@@ -8,6 +8,7 @@ import com.goormthon.backend.mindwalk.domain.auth.presentation.annotation.Authen
 import com.goormthon.backend.mindwalk.domain.garden.api.docs.GardenControllerDocs;
 import com.goormthon.backend.mindwalk.domain.garden.application.GardenService;
 import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGardenInfoResponse;
+import com.goormthon.backend.mindwalk.domain.garden.dto.response.GetGrowingPlantInfoResponse;
 import com.goormthon.backend.mindwalk.global.response.BaseResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,10 @@ public class GardenController implements GardenControllerDocs {
 	@GetMapping
 	public BaseResponse<GetGardenInfoResponse> getUserGarden(@AuthenticatedId Long currentUserId) {
 		return BaseResponse.success(gardenService.getUserGarden(currentUserId));
+	}
+
+	@GetMapping("/growing-plant")
+	public BaseResponse<GetGrowingPlantInfoResponse> getUserGrowingPlant(@AuthenticatedId Long currentUserId) {
+		return BaseResponse.success(gardenService.getUserGrowingPlant(currentUserId));
 	}
 }
