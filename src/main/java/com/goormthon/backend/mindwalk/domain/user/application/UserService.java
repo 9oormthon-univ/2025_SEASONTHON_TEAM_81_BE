@@ -40,6 +40,6 @@ public class UserService {
 
 	private User findUserById(Long userId) {
 		return userRepository.findById(userId)
-			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND));
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_USER));
 	}
 }
