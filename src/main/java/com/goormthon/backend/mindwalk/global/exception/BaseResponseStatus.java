@@ -24,7 +24,7 @@ public enum BaseResponseStatus {
 	REQ_BINDING_FAIL(false, 40004, HttpStatus.BAD_REQUEST, "잘못된 request 입니다."),
 	FAILED_VALIDATION(false, 40005, HttpStatus.BAD_REQUEST, "입력값이 누락되었거나, 부적절한 입력 값이 있습니다."),
 	MISMATCH_PARAM_TYPE(false, 40006, HttpStatus.BAD_REQUEST, "잘못된 파라미터 타입입니다."),
-	CANNOT_CANCEL_MISSION(false, 40007, HttpStatus.BAD_REQUEST, "이미 완료되었거나 취소된 미션은 취소할 수 없습니다."),
+	INVALID_MISSION_STATUS(false, 40007, HttpStatus.BAD_REQUEST, "미션이 진행중인 상태가 아닙니다."),
 
 	/**
 	 * 401 UNAUTHORIZED 권한없음(인증 실패)
@@ -40,11 +40,11 @@ public enum BaseResponseStatus {
 	 * 404 NOT_FOUND 잘못된 리소스 접근
 	 */
 	NOT_FOUND(false, 404, HttpStatus.NOT_FOUND, "Not Found"),
-	NOT_FOUND_MISSION(false, 404, HttpStatus.NOT_FOUND, "Not Found Mission"),
-	NOT_FOUND_HEALING_CONTENT(false, 404, HttpStatus.NOT_FOUND, "Not Found HealingContent"),
 	NOT_FOUND_USER(false, 40401, HttpStatus.NOT_FOUND, "User를 찾을 수 없습니다."),
-	NOT_FOUND_GARDEN(false, 40402, HttpStatus.NOT_FOUND, "Garden을 찾을 수 없습니다."),
-	NOT_FOUND_GROWING_PLANT(false, 40403, HttpStatus.NOT_FOUND, "현재 키우고 있는 식물을 찾을 수 없습니다."),
+	NOT_FOUND_WALK_MISSION(false, 40402, HttpStatus.NOT_FOUND, "WalkMission을 찾을 수 없습니다."),
+	NOT_FOUND_HEALING_CONTENT(false, 40403, HttpStatus.NOT_FOUND, "HealingContent를 찾을 수 없습니다."),
+	NOT_FOUND_GARDEN(false, 40404, HttpStatus.NOT_FOUND, "Garden을 찾을 수 없습니다."),
+	NOT_FOUND_GROWING_PLANT(false, 40405, HttpStatus.NOT_FOUND, "현재 키우고 있는 식물을 찾을 수 없습니다."),
 
 	/**
 	 * 405 METHOD_NOT_ALLOWED 지원하지 않은 method 호출

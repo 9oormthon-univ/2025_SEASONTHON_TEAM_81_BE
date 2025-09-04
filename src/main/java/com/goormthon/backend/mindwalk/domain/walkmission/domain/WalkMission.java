@@ -62,10 +62,30 @@ public class WalkMission extends BaseTimeEntity {
 		this.user = user;
 	}
 
+	public static WalkMission createWalkMission(User user, Long targetDurationMinutes) {
+		return WalkMission.builder()
+			.targetDurationMinutes(targetDurationMinutes)
+			.status(WalkMissionStatus.IN_PROGRESS)
+			.user(user)
+			.build();
+	}
+
 	public void cancel() {
-		if (this.status != WalkMissionStatus.IN_PROGRESS) {
-			throw new BaseException(BaseResponseStatus.CANNOT_CANCEL_MISSION);
-		}
+		validateProcessable();
 		this.status = WalkMissionStatus.CANCELED;
+	}
+
+	public void complete(Long steps, Long distanceMeters, Long actualDurationMinutes) {
+		validateProcessable();
+		this.steps = steps;
+		this.distanceMeters = distanceMeters;
+		this.actualDurationMinutes = actualDurationMinutes;
+		this.status = WalkMissionStatus.COMPLETED;
+	}
+
+	private void validateProcessable() {
+		if (this.status != WalkMissionStatus.IN_PROGRESS) {
+			throw new BaseException(BaseResponseStatus.INVALID_MISSION_STATUS);
+		}
 	}
 }
