@@ -46,12 +46,9 @@ public class GardenService {
 	}
 
 	private TodayGrowth createTodayGrowth(User user, List<GardenPlant> gardenPlants) {
-		if (gardenPlants.isEmpty()) {
-			return null;
-		}
 		GardenPlant userGrowingPlant = gardenPlants.stream()
 			.max(Comparator.comparing(GardenPlant::getId))
-			.get();
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_GROWING_PLANT));
 		LocalDateTime startOfToday = LocalDate.now().atStartOfDay();
 		LocalDateTime endOfToday = startOfToday.plusDays(1);
 		List<WalkMission> completedMissionsToday = walkMissionRepository.findAllByUserAndStatusAndCompletedAtBetween(
