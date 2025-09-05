@@ -1,5 +1,7 @@
 package com.goormthon.backend.mindwalk.domain.garden.domain;
 
+import java.util.Random;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,4 +14,10 @@ public enum FlowerType {
 	LAVENDER("라벤더");
 
 	private final String value;
+	private static final Random RANDOM = new Random();
+
+	public static FlowerType getRandomFlowerType() {
+		FlowerType[] flowerTypes = values();
+		return flowerTypes[RANDOM.nextInt(flowerTypes.length)];
+	}
 }

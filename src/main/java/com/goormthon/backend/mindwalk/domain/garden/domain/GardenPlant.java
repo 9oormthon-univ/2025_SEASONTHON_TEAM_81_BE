@@ -56,7 +56,7 @@ public class GardenPlant extends BaseTimeEntity {
 		return GardenPlant.builder()
 			.plantStage(PlantStage.SEED)
 			.growthPoint(0L)
-			.flowerType(FlowerType.ROSE)
+			.flowerType(FlowerType.getRandomFlowerType())
 			.garden(garden)
 			.build();
 	}
