@@ -7,8 +7,3 @@ spring:
     url: jdbc:mysql://${DB_HOST}:3306/mindwalk_db
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:healing_content.sql
