@@ -1,5 +1,7 @@
 package com.goormthon.backend.mindwalk.domain.garden.domain;
 
+import com.goormthon.backend.mindwalk.domain.common.BaseTimeEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "garden_plant")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class GardenPlant {
+public class GardenPlant extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
