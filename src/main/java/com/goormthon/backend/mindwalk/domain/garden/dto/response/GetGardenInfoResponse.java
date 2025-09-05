@@ -8,30 +8,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public record GetGardenInfoResponse(
 	TodayGrowth todayGrowth,
-	List<UserGardenPlant> gardenPlants,
 	List<UserFlower> flowerCollection
 ) {
 	public record TodayGrowth(
-		@Schema(description = "오늘 하루 성장 포인트", example = "10")
+		@Schema(description = "오늘 하루 동안 획득한 식물 성장 포인트", example = "10")
 		Long todayGrowthPoint,
-		@Schema(description = "현재 식물 성장 단계", example = "씨앗")
+		@Schema(description = "식물 ID", example = "5")
+		Long gardenPlantId,
+		@Schema(description = "사용자가 현재 키우고 있는 식물의 누적 성장 포인트", example = "50")
+		Long growthPoint,
+		@Schema(description = "현재 식물 성장 단계", example = "새싹")
 		String plantStage,
 		@Schema(description = "꽃 종류", example = "장미")
 		String flowerType
 	) {
-	}
-
-	public record UserGardenPlant(
-		@Schema(description = "정원 식물 ID", example = "1")
-		Long gardenPlantId,
-		@Schema(description = "식물 성장 단계", example = "씨앗")
-		String plantStage,
-		@Schema(description = "식물 종류", example = "장미")
-		String flowerType
-	) {
-		public static UserGardenPlant from(GardenPlant gardenPlant) {
-			return new UserGardenPlant(
+		public static TodayGrowth of(Long todayGrowthPoint, GardenPlant gardenPlant) {
+			return new TodayGrowth(
+				todayGrowthPoint,
 				gardenPlant.getId(),
+				gardenPlant.getGrowthPoint(),
 				gardenPlant.getPlantStage().getValue(),
 				gardenPlant.getFlowerType().getValue()
 			);
