@@ -12,4 +12,6 @@ import com.goormthon.backend.mindwalk.domain.garden.domain.PlantStage;
 @Repository
 public interface GardenPlantRepository extends JpaRepository<GardenPlant, Long> {
 	Optional<GardenPlant> findByGardenAndPlantStageNot(Garden garden, PlantStage plantStage);
+
+	Long countByGardenAndPlantStage(Garden garden, PlantStage plantStage);
 }

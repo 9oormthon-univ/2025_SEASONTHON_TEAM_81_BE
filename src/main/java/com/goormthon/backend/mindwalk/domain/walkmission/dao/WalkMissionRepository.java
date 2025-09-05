@@ -17,4 +17,6 @@ public interface WalkMissionRepository extends JpaRepository<WalkMission, Long> 
 
 	boolean existsByUserAndStatusAndCompletedAtBetween(User user, WalkMissionStatus status, LocalDateTime start,
 		LocalDateTime end);
+
+	Long countByUserAndStatus(User user, WalkMissionStatus status);
 }
