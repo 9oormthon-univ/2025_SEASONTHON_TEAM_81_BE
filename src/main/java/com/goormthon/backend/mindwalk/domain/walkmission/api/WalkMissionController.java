@@ -30,7 +30,7 @@ public class WalkMissionController implements WalkMissionControllerDocs {
 		return BaseResponse.success(walkMissionService.createWalkMission(currentUserId, request));
 	}
 
-	@PostMapping("/{missionId}/cancle")
+	@PostMapping("/{missionId}/cancel")
 	public BaseResponse<Void> cancelWalkMission(@AuthenticatedId Long currentUserId,
 		@PathVariable(value = "missionId") Long missionId) {
 		walkMissionService.cancelWalkMission(currentUserId, missionId);
