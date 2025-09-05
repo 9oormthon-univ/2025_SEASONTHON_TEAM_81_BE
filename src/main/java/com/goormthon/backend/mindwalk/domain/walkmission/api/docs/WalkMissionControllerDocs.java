@@ -4,13 +4,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.goormthon.backend.mindwalk.domain.auth.presentation.annotation.AuthenticatedId;
-import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.WalkMissionCreateRequest;
+import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.CompleteWalkMissionRequest;
+import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.CreateWalkMissionRequest;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.response.WalkMissionListResponse;
 import com.goormthon.backend.mindwalk.global.response.BaseResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -37,7 +37,8 @@ public interface WalkMissionControllerDocs {
 	})
 	public BaseResponse<WalkMissionListResponse> createWalkMission(
 		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
-		@Valid @RequestBody WalkMissionCreateRequest request);
+		@Valid @RequestBody CreateWalkMissionRequest request
+	);
 
 	@Operation(
 		summary = "산책 미션 취소",
@@ -54,6 +55,21 @@ public interface WalkMissionControllerDocs {
 		@ApiResponse(responseCode = "404", description = "존재하지 않는 산책 미션인 경우",
 			content = @Content(schema = @Schema(implementation = BaseResponse.class)))
 	})
-	public BaseResponse<Void> cancelWalkMission(@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
-		@PathVariable(value = "missionId") Long missionId);
+	public BaseResponse<Void> cancelWalkMission(
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
+		@PathVariable(value = "missionId") Long missionId
+	);
+
+	@Operation(
+		summary = "산책 미션 완료",
+		description = "진행 중인 산책 미션을 완료 처리합니다. 미션 완료 시 식물 성장 포인트가 10 상승합니다."
+	)
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "산책 미션 완료 성공")
+	})
+	public BaseResponse<Void> completeWalkMission(
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
+		@Parameter(description = "산책 미션 ID") @PathVariable(value = "missionId") Long missionId,
+		@Valid @RequestBody CompleteWalkMissionRequest request
+	);
 }

@@ -34,9 +34,6 @@ public class GardenPlant {
 	@Column(name = "growth_point", nullable = false)
 	private Long growthPoint;
 
-	@Column(name = "growth_level", nullable = false)
-	private Long growthLevel;
-
 	@Enumerated(EnumType.STRING)
 	@Column(name = "flower_type", nullable = false)
 	private FlowerType flowerType;
@@ -46,11 +43,9 @@ public class GardenPlant {
 	private Garden garden;
 
 	@Builder
-	public GardenPlant(PlantStage plantStage, Long growthPoint, Long growthLevel, FlowerType flowerType,
-		Garden garden) {
+	public GardenPlant(PlantStage plantStage, Long growthPoint, FlowerType flowerType, Garden garden) {
 		this.plantStage = plantStage;
 		this.growthPoint = growthPoint;
-		this.growthLevel = growthLevel;
 		this.flowerType = flowerType;
 		this.garden = garden;
 	}
@@ -59,9 +54,17 @@ public class GardenPlant {
 		return GardenPlant.builder()
 			.plantStage(PlantStage.SEED)
 			.growthPoint(0L)
-			.growthLevel(0L)
 			.flowerType(FlowerType.ROSE)
 			.garden(garden)
 			.build();
+	}
+
+	public void addGrowthPoint(Long point) {
+		this.growthPoint += point;
+		if (this.growthPoint >= 150) {
+			this.plantStage = PlantStage.FLOWER;
+		} else if (this.growthPoint >= 50) {
+			this.plantStage = PlantStage.SPROUT;
+		}
 	}
 }
