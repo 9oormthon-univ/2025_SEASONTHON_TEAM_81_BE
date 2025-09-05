@@ -32,7 +32,7 @@ public interface UserControllerDocs {
 			content = @Content(schema = @Schema(implementation = BaseResponse.class))),
 	})
 	BaseResponse<Void> createNickname(
-		@Parameter(hidden = true) @AuthenticatedId Long userId,
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
 		@Valid @RequestBody UserNicknameRequest request
 	);
 
@@ -47,8 +47,10 @@ public interface UserControllerDocs {
 		@ApiResponse(responseCode = "401", description = "인증되지 않은 사용자",
 			content = @Content(schema = @Schema(implementation = BaseResponse.class))),
 	})
-	public BaseResponse<Void> updateNickname(@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
-		@RequestBody UserNicknameRequest request);
+	public BaseResponse<Void> updateNickname(
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
+		@RequestBody UserNicknameRequest request
+	);
 
 	@Operation(
 		summary = "회원 정보 조회",
@@ -63,7 +65,7 @@ public interface UserControllerDocs {
 			content = @Content(schema = @Schema(implementation = BaseResponse.class)))
 	})
 	BaseResponse<UserInfoResponse> getUserInfo(
-		@Parameter(hidden = true) @AuthenticatedId Long userId
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId
 	);
 
 	@Operation(
@@ -73,6 +75,7 @@ public interface UserControllerDocs {
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "설정 수정 성공")
 	})
-	BaseResponse<Void> updateUser(@Parameter(hidden = true) @AuthenticatedId Long userId,
+	BaseResponse<Void> updateUser(
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
 		@RequestBody UserNotificationRequest request);
 }

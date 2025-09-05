@@ -1,5 +1,7 @@
 package com.goormthon.backend.mindwalk.domain.walkmission.domain;
 
+import java.time.LocalDateTime;
+
 import com.goormthon.backend.mindwalk.domain.common.BaseTimeEntity;
 import com.goormthon.backend.mindwalk.domain.user.domain.User;
 import com.goormthon.backend.mindwalk.global.exception.BaseException;
@@ -47,6 +49,9 @@ public class WalkMission extends BaseTimeEntity {
 	@Column(name = "target_duration_minutes", nullable = false)
 	private Long targetDurationMinutes;
 
+	@Column(name = "completed_at")
+	private LocalDateTime completedAt;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -81,6 +86,7 @@ public class WalkMission extends BaseTimeEntity {
 		this.distanceMeters = distanceMeters;
 		this.actualDurationMinutes = actualDurationMinutes;
 		this.status = WalkMissionStatus.COMPLETED;
+		this.completedAt = LocalDateTime.now();
 	}
 
 	private void validateProcessable() {
