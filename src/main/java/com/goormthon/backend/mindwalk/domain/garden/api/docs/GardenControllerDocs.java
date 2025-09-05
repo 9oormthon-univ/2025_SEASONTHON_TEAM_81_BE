@@ -23,7 +23,7 @@ public interface GardenControllerDocs {
 		)
 	})
 	BaseResponse<GetGardenInfoResponse> getUserGarden(
-		@Parameter(hidden = true) @AuthenticatedId Long memberId
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId
 	);
 
 	@Operation(summary = "사용자가 현재 키우고 있는 식물 조회", description = "사용자가 현재 키우고 있는 식물의 정보를 조회합니다.")
@@ -33,6 +33,6 @@ public interface GardenControllerDocs {
 		)
 	})
 	BaseResponse<GetGrowingPlantInfoResponse> getUserGrowingPlant(
-		@Parameter(hidden = true) @AuthenticatedId Long memberId
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId
 	);
 }
