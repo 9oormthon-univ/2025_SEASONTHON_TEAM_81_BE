@@ -1,7 +1,9 @@
 package com.goormthon.backend.mindwalk.domain.garden.dto.response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.goormthon.backend.mindwalk.domain.garden.domain.GardenPlant;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -37,12 +39,16 @@ public record GetGardenInfoResponse(
 		@Schema(description = "수집한 꽃 ID", example = "2")
 		Long gardenPlantId,
 		@Schema(description = "꽃 종류", example = "해바라기")
-		String flowerType
+		String flowerType,
+		@Schema(description = "꽃이 핀 날짜", example = "2025-09-06")
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+		LocalDateTime bloomedAt
 	) {
 		public static UserFlower from(GardenPlant gardenPlant) {
 			return new UserFlower(
 				gardenPlant.getId(),
-				gardenPlant.getFlowerType().getValue()
+				gardenPlant.getFlowerType().getValue(),
+				gardenPlant.getBloomedAt()
 			);
 		}
 	}

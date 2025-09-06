@@ -1,5 +1,7 @@
 package com.goormthon.backend.mindwalk.domain.garden.domain;
 
+import java.time.LocalDateTime;
+
 import com.goormthon.backend.mindwalk.domain.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
@@ -40,6 +42,9 @@ public class GardenPlant extends BaseTimeEntity {
 	@Column(name = "flower_type", nullable = false)
 	private FlowerType flowerType;
 
+	@Column(name = "bloomed_at")
+	private LocalDateTime bloomedAt;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "garden_id")
 	private Garden garden;
@@ -63,8 +68,9 @@ public class GardenPlant extends BaseTimeEntity {
 
 	public void addGrowthPoint(Long point) {
 		this.growthPoint += point;
-		if (this.growthPoint >= 150) {
+		if (this.growthPoint == 150) {
 			this.plantStage = PlantStage.FLOWER;
+			this.bloomedAt = LocalDateTime.now();
 		} else if (this.growthPoint >= 50) {
 			this.plantStage = PlantStage.SPROUT;
 		}
