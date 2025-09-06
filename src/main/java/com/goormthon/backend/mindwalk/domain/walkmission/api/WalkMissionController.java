@@ -44,4 +44,11 @@ public class WalkMissionController implements WalkMissionControllerDocs {
 		walkMissionService.completeWalkMission(currentUserId, missionId, request);
 		return BaseResponse.success();
 	}
+
+	@PostMapping("/complete")
+	public BaseResponse<Void> completeUserWalkMission(@AuthenticatedId Long currentUserId,
+		@RequestBody CompleteWalkMissionRequest request) {
+		walkMissionService.completeUserWalkMission(currentUserId, request);
+		return BaseResponse.success();
+	}
 }

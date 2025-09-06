@@ -11,6 +11,7 @@ import com.goormthon.backend.mindwalk.domain.user.dao.UserRepository;
 import com.goormthon.backend.mindwalk.domain.user.domain.User;
 import com.goormthon.backend.mindwalk.domain.walkmission.dao.WalkMissionRepository;
 import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMission;
+import com.goormthon.backend.mindwalk.domain.walkmission.domain.WalkMissionStatus;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.CompleteWalkMissionRequest;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.request.CreateWalkMissionRequest;
 import com.goormthon.backend.mindwalk.domain.walkmission.dto.response.WalkMissionListResponse;
@@ -75,6 +76,17 @@ public class WalkMissionService {
 		if (!walkMission.getUser().getId().equals(userId)) {
 			throw new BaseException(BaseResponseStatus.FORBIDDEN);
 		}
+		walkMission.complete(request.steps(), request.distanceMeters(), request.actualDurationMinutes());
+		gardenService.addGrowthPointAfterMission(userId);
+	}
+
+	@Transactional
+	public void completeUserWalkMission(Long userId, CompleteWalkMissionRequest request) {
+		User user = findUserById(userId);
+		WalkMission newWalkMission = WalkMission.createWalkMission(user, 30L);
+		walkMissionRepository.save(newWalkMission);
+		WalkMission walkMission = walkMissionRepository.findByUserIdAndStatus(userId, WalkMissionStatus.IN_PROGRESS)
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_WALK_MISSION));
 		walkMission.complete(request.steps(), request.distanceMeters(), request.actualDurationMinutes());
 		gardenService.addGrowthPointAfterMission(userId);
 	}

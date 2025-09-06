@@ -2,6 +2,7 @@ package com.goormthon.backend.mindwalk.domain.walkmission.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,6 @@ public interface WalkMissionRepository extends JpaRepository<WalkMission, Long> 
 		LocalDateTime end);
 
 	Long countByUserAndStatus(User user, WalkMissionStatus status);
+
+	Optional<WalkMission> findByUserIdAndStatus(Long userId, WalkMissionStatus walkMissionStatus);
 }

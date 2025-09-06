@@ -72,4 +72,16 @@ public interface WalkMissionControllerDocs {
 		@Parameter(description = "산책 미션 ID") @PathVariable(value = "missionId") Long missionId,
 		@Valid @RequestBody CompleteWalkMissionRequest request
 	);
+
+	@Operation(
+		summary = "산책 미션 완료",
+		description = "진행 중인 산책 미션을 완료 처리합니다. 미션 완료 시 식물 성장 포인트가 10 상승합니다."
+	)
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "산책 미션 완료 성공")
+	})
+	public BaseResponse<Void> completeUserWalkMission(
+		@Parameter(hidden = true) @AuthenticatedId Long currentUserId,
+		@RequestBody CompleteWalkMissionRequest request
+	);
 }
